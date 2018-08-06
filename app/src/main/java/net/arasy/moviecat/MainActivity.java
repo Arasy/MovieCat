@@ -1,12 +1,14 @@
 package net.arasy.moviecat;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -85,6 +87,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             bundle.putString(EXTRAS_QUERY,movie);
             pb.setVisibility(View.VISIBLE);
             getLoaderManager().restartLoader(0,bundle,MainActivity.this);
+
+            resultLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    System.out.println(String.format("Item "+position+" diclick, idnya "+id));
+                    System.out.println(view.toString());
+                    Intent goToDetailIntent = new Intent(MainActivity.this,DetailActivity.class);
+                    goToDetailIntent.putExtra(DetailActivity.MOVIE_ID,"345644");
+                    startActivity(goToDetailIntent);
+                }
+            });
         }
     };
 

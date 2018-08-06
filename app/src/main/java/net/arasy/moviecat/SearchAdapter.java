@@ -19,7 +19,7 @@ public class SearchAdapter extends BaseAdapter {
     private ArrayList<MovieItem> movieItemArrayList = new ArrayList<>();
     private LayoutInflater layoutInflater;
     private Context context;
-    String link = "http://image.tmdb.org/t/p/w185/";
+    String link = "http://image.tmdb.org/t/p/w185";
 
     public SearchAdapter(Context context){
         this.context = context;

@@ -3,6 +3,7 @@ package net.arasy.moviecat;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +42,10 @@ public class GetMovie extends AsyncTaskLoader<ArrayList<MovieItem>> {
         movieItemArrayList = movieList;
         ada = true;
         super.deliverResult(movieList);
+
+        MainActivity.pb.setVisibility(View.INVISIBLE);
+        Log.v("releaseAll", movieList.toString());
+        MainActivity.resultTv.setText(String.format("Ada "+movieList.size()+" hasil yang ditemukan :"));
     }
 
     @Override

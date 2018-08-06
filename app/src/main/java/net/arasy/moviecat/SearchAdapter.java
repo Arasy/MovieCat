@@ -82,7 +82,10 @@ public class SearchAdapter extends BaseAdapter {
 
         new GetImage(viewHolder.vh_poster).execute(link+movieItemArrayList.get(position).getPoster_path());
         viewHolder.vh_title.setText(movieItemArrayList.get(position).getTitle());
-        viewHolder.vh_subtitle.setText(movieItemArrayList.get(position).getOverview().substring(0,50)+"...");
+        String teks = movieItemArrayList.get(position).getOverview();
+        if(teks.length()>100) {
+            viewHolder.vh_subtitle.setText(teks.substring(0, 100) + "...");
+        } else viewHolder.vh_subtitle.setText(teks);
         return convertView;
     }
 

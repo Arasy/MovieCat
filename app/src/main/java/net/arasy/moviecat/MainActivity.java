@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     Button searchBtn;
     EditText searchEdt;
-    TextView resultTv;
+    static TextView resultTv;
     ListView resultLv;
-    ProgressBar pb;
+    static ProgressBar pb;
     SearchAdapter adapter;
 
     static final String EXTRAS_QUERY = "EXTRAS_QUERY";
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         resultLv.setAdapter(adapter);
 
         pb = (ProgressBar) findViewById(R.id.progress_bar);
-
+        pb.setVisibility(View.INVISIBLE);
         String movie = searchEdt.getText().toString();
         Bundle bundle = new Bundle();
         bundle.putString(EXTRAS_QUERY,movie);
@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             Bundle bundle = new Bundle();
             bundle.putString(EXTRAS_QUERY,movie);
+            pb.setVisibility(View.VISIBLE);
             getLoaderManager().restartLoader(0,bundle,MainActivity.this);
-
         }
     };
 

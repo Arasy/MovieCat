@@ -1,6 +1,8 @@
 package net.arasy.moviecat;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +10,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class SearchAdapter extends BaseAdapter {
     private ArrayList<MovieItem> movieItemArrayList = new ArrayList<>();
     private LayoutInflater layoutInflater;
     private Context context;
+    String link = "http://image.tmdb.org/t/p/w185/";
 
     public SearchAdapter(Context context){
         this.context = context;
@@ -66,7 +72,7 @@ public class SearchAdapter extends BaseAdapter {
         if (convertView==null){
             viewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.movie_listitem, null);
-            //viewHolder.vh_poster = (ImageView)convertView.findViewById(R.id.img_Poster);
+            viewHolder.vh_poster = (ImageView)convertView.findViewById(R.id.img_Poster);
             viewHolder.vh_title = (TextView)convertView.findViewById(R.id.tv_title);
             viewHolder.vh_subtitle = (TextView)convertView.findViewById(R.id.tv_subtitle);
             convertView.setTag(viewHolder);
@@ -74,15 +80,16 @@ public class SearchAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        ///viewHolder.vh_poster.setImageDrawable(null); //new GetImage(this.context,movieItemArrayList.get(position).getPoster_path()));
+        new GetImage(viewHolder.vh_poster).execute(link+movieItemArrayList.get(position).getPoster_path());
         viewHolder.vh_title.setText(movieItemArrayList.get(position).getTitle());
-        viewHolder.vh_subtitle.setText(movieItemArrayList.get(position).getOverview());
+        viewHolder.vh_subtitle.setText(movieItemArrayList.get(position).getOverview().substring(0,50)+"...");
         return convertView;
     }
 
     private static class ViewHolder {
-        //ImageView vh_poster;
+        ImageView vh_poster;
         TextView vh_title;
         TextView vh_subtitle;
     }
+
 }

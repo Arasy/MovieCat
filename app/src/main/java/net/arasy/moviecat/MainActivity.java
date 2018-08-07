@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     ListView resultLv;
     static ProgressBar pb;
     SearchAdapter adapter;
+    ArrayList<MovieItem> movie_list;
 
     static final String EXTRAS_QUERY = "EXTRAS_QUERY";
 
@@ -66,11 +67,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<ArrayList<MovieItem>> loader, ArrayList<MovieItem> items){
         adapter.setData(items);
+        movie_list = items;
+
     }
 
     @Override
     public void onLoaderReset(Loader<ArrayList<MovieItem>> loader){
         adapter.setData(null);
+        movie_list = null;
 
     }
 
@@ -94,7 +98,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     System.out.println(String.format("Item "+position+" diclick, idnya "+id));
                     System.out.println(view.toString());
                     Intent goToDetailIntent = new Intent(MainActivity.this,DetailActivity.class);
-                    goToDetailIntent.putExtra(DetailActivity.MOVIE_ID,"345644");
+                    //goToDetailIntent.putExtra(DetailActivity.MOVIE_ID,"345644");
+                    goToDetailIntent.putExtra(DetailActivity.MOVIE_ID,String.format(""+movie_list.get(position).getId()));
                     startActivity(goToDetailIntent);
                 }
             });

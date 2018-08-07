@@ -60,11 +60,12 @@ public class GetMovie extends AsyncTaskLoader<ArrayList<MovieItem>> {
     }
 
     private static final String API_KEY = "a0b9f0b0efb9008e042981f7a1110058";
-    private static String search_url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&language=en-US&query=";
+    private static String search_url;
 
     @Override
     public ArrayList<MovieItem> loadInBackground(){
         try{
+            search_url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&language=en-US&query=";
             movieItemArrayList = new ArrayList<>();
             URL url = new URL(search_url+search_query);
             HttpsURLConnection urlCon = (HttpsURLConnection) url.openConnection();

@@ -78,10 +78,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     private void loadData(JSONObject content){
+        String link_poster="";
         try {
-            new GetImage(poster).execute(content.getString(link + content.getString("poster_path")));
+            link_poster = link + content.getString("poster_path");
+            new GetImage(poster).execute(link_poster);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.v("DALoadData", "connect to "+link_poster);
             Log.v("DALoadData","no image");
         }
         try{
@@ -94,9 +97,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 teks = teks + genres.getJSONObject(i).getString("name") + ", ";
             }
             teks = teks.substring(0, teks.length() - 2);
-            genre.setText(teks);
+            genre.setText("Genre = "+teks);
 
-            date.setText(content.getString("release_date"));
+            date.setText("Tanggal rilis = "+content.getString("release_date"));
             Log.v("DALoadData","finished");
         } catch (Exception e){
             e.printStackTrace();

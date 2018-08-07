@@ -44,13 +44,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         MOVIE_ID = getIntent().getStringExtra(MOVIE_ID);
 
-        Log.v("DetailAct","created");
-
         Bundle bundle = new Bundle();
         bundle.putString(EXTRAS_ID,MOVIE_ID);
 
         getLoaderManager().initLoader(0,bundle,this);
-        Log.v("DetailAct","loader initialized");
 
     }
 
@@ -60,13 +57,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         if(args!=null){
             movie = args.getString(EXTRAS_ID);
         }
-        Log.v("DALoaderCreated","movie_id = "+movie);
         return new GetDetail(this,movie);
     }
 
     @Override
     public void onLoadFinished(Loader<JSONObject> loader, JSONObject items){
-        Log.v("DALoaderFinished",items.toString());
         loadData(items);
         pb.setVisibility(View.INVISIBLE);
     }
@@ -84,8 +79,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             new GetImage(poster).execute(link_poster);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.v("DALoadData", "connect to "+link_poster);
-            Log.v("DALoadData","no image");
         }
         try{
             title.setText(content.getString("title"));
@@ -100,10 +93,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             genre.setText("Genre = "+teks);
 
             date.setText("Tanggal rilis = "+content.getString("release_date"));
-            Log.v("DALoadData","finished");
         } catch (Exception e){
             e.printStackTrace();
-            Log.v("DALoadData","error text");
         }
     }
 

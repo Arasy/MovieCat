@@ -2,8 +2,6 @@ package net.arasy.moviecat;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.os.AsyncTask;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 
@@ -27,7 +25,6 @@ public class GetDetail extends AsyncTaskLoader<JSONObject> {
         super(context);
         onContentChanged();
         this.movie_id = teks;
-        Log.v("getDetailDeclare", teks);
     }
 
     @Override
@@ -43,7 +40,6 @@ public class GetDetail extends AsyncTaskLoader<JSONObject> {
         super.deliverResult(object);
 
         DetailActivity.pb.setVisibility(View.INVISIBLE);
-        Log.v("detailDeliverResult", result.toString());
     }
 
     @Override
@@ -65,7 +61,6 @@ public class GetDetail extends AsyncTaskLoader<JSONObject> {
         try{
             search_url = "https://api.themoviedb.org/3/movie/"+movie_id+"?api_key=" + API_KEY;
             URL url = new URL(search_url);
-            Log.v("getDetailLoad", search_url);
             HttpsURLConnection urlCon = (HttpsURLConnection) url.openConnection();
             InputStream stream = new BufferedInputStream(urlCon.getInputStream());
             BufferedReader buffRead = new BufferedReader(new InputStreamReader(stream));
@@ -78,9 +73,8 @@ public class GetDetail extends AsyncTaskLoader<JSONObject> {
 
             result = new JSONObject(builder.toString());
 
-            Log.v("getDetailResult",  result.toString());
         } catch (Exception e){
-            Log.v("getDetailError",e.toString());
+            e.printStackTrace();
         }
         return result;
     }

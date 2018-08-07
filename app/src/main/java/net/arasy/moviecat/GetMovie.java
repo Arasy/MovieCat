@@ -44,8 +44,11 @@ public class GetMovie extends AsyncTaskLoader<ArrayList<MovieItem>> {
         super.deliverResult(movieList);
 
         MainActivity.pb.setVisibility(View.INVISIBLE);
-        Log.v("releaseAll", movieList.toString());
-        MainActivity.resultTv.setText(String.format("Ada "+movieList.size()+" hasil yang ditemukan :"));
+        if(movieList.size()==20){
+            MainActivity.resultTv.setText(String.format("Ditemukan 20 hasil paling sesuai :"));
+        } else {
+            MainActivity.resultTv.setText(String.format("Ada " + movieList.size() + " hasil yang ditemukan :"));
+        }
     }
 
     @Override
@@ -80,24 +83,19 @@ public class GetMovie extends AsyncTaskLoader<ArrayList<MovieItem>> {
 
             JSONObject respon = new JSONObject(builder.toString());
             JSONArray results = respon.getJSONArray("results");
-            Log.v("getMresult",  results.toString());
 
             for (int i = 0; i < results.length(); i++) {
                 try {
                     JSONObject movieJSON = results.getJSONObject(i);
                     MovieItem item = new MovieItem(movieJSON);
-                    Log.v("getMitem", item.toString());
                     movieItemArrayList.add(item);
-                    Log.v("getMadded", String.format("item added " + i));
                 } catch (Exception e){
-                    Log.v("getMCantAdd",String.format("item "+ i+" can't add"));
+                    e.printStackTrace();
                 }
             }
 
-            Log.v("getMall", movieItemArrayList.toString());
-
         } catch (Exception e){
-            Log.v("getMerror",e.toString());
+            e.printStackTrace();
         }
         return movieItemArrayList;
     }

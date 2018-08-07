@@ -81,9 +81,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.v("test","tombol search dipencet");
             String movie = searchEdt.getText().toString();
-            Log.v("test","editText isinya "+movie);
 
             if(TextUtils.isEmpty(movie)) return;
 
@@ -95,10 +93,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             resultLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    System.out.println(String.format("Item "+position+" diclick, idnya "+id));
-                    System.out.println(view.toString());
                     Intent goToDetailIntent = new Intent(MainActivity.this,DetailActivity.class);
-                    //goToDetailIntent.putExtra(DetailActivity.MOVIE_ID,"345644");
                     goToDetailIntent.putExtra(DetailActivity.MOVIE_ID,String.format(""+movie_list.get(position).getId()));
                     startActivity(goToDetailIntent);
                 }

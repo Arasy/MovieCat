@@ -27,8 +27,7 @@ public class GetImage extends AsyncTask<String, Void, Bitmap> {
             InputStream inputStream = new URL(url).openStream();
             bmp = BitmapFactory.decodeStream(inputStream);
         } catch (Exception e){
-            Log.e("ImageError", e.getMessage());
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return bmp;
 
